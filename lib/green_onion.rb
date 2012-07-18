@@ -3,5 +3,6 @@ require "green_onion/screenshot"
 
 module GreenOnion
 	class << self
+
 	end
 end
