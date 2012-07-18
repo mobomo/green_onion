@@ -28,4 +28,15 @@ The primary feature of GreenOnion is seeing how much (if at all) a view has chan
 
 Once you are aware of a issue in the UI, you can also rip open your spec/skins directory and manually see what the differences are from one screenshot to the next. Screenshots can either be viewed as a visual diff, or overlayed newest over oldest and viewed as an green_onion-skin with sliding transparency.
 
-## Configuration
+## THANK YOU
+
+Much of this work could not be completed without these people and projects
+
+### Jeff Kreeftmeijer
+This is the post that got the wheels in motion: http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/. Most of the GreenOnion::Compare class is based on this work alone. Great job Jeff!
+
+### Compatriot
+Carol Nichols saw the same post, and worked on an excellent gem for cross-browser testing. That gem greatly influenced design decisions with GreenOnion.
+
+### Capybara and ChunkyPNG
+The land on which we sow our bulbs.
