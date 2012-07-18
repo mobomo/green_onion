@@ -1,4 +1,5 @@
 require 'capybara/dsl'
+require "fileutils"
 
 module GreenOnion
 	class Screenshot
@@ -11,18 +12,14 @@ module GreenOnion
 			@dir = params[:dir]
 		end
 
-		def take_screenshot(url, path)
+		def snap_screenshot(url, path)
 			visit url
 			Capybara.page.driver.browser.save_screenshot(path)
 		end
 
 		def test_screenshot(url)
 			url_to_path(url)
-			if File.exist?(@path)
-				take_screenshot(url, @path)
-			else
-				take_screenshot(url, @path)
-			end
+			snap_screenshot(url, @path)
 		end
 
 		def url_to_path(url)
@@ -33,7 +30,28 @@ module GreenOnion
 				@filename = @filename.gsub(/[\/]/, '')
 				@path = "#{@dir}/#{@filename}.png"
 			end
+			accepted?(@path)
 			return @path
+		end
+
+		def accepted?(path)
+			if File.exist?(path)
+				return path.insert(-5, '_fresh')
+			else
+				return path
+			end
+		end
+
+		def destroy(url)
+			url_to_path(url)
+			fresh_path = @path.insert(-5, '_fresh') 
+
+			if File.exist?(fresh_path)
+				FileUtils.rm(fresh_path) 
+			end
+			if File.exist?(@path)
+				FileUtils.rm(@path)
+			end
 		end
 
 	end
