@@ -35,10 +35,10 @@ module GreenOnion
 
 		def visual_diff(org, fresh)
 			diff_images(org, fresh)
-			x, y = diff.map{ |xy| xy[0] }, diff.map{ |xy| xy[1] }
+			x, y = @diff.map{ |xy| xy[0] }, @diff.map{ |xy| xy[1] }
 
-			images.last.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
-			images.last.save('diff.png')
+			@images.last.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
+			@images.last.save(org.insert(-5, '_diff'))
 		end
 
 	end
