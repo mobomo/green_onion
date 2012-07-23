@@ -23,6 +23,12 @@ module GreenOnion
 		end
 
 		def url_to_path(url)
+			get_path(url)
+			accepted?(@path)
+			return @path
+		end	
+
+		def get_path(url)
 			@filename = url.match(/^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/)[5]
 			if @filename.empty?
 				@path = "#{@dir}/root.png"
@@ -30,7 +36,6 @@ module GreenOnion
 				@filename = @filename.gsub(/[\/]/, '')
 				@path = "#{@dir}/#{@filename}.png"
 			end
-			accepted?(@path)
 			return @path
 		end
 
@@ -43,14 +48,14 @@ module GreenOnion
 		end
 
 		def destroy(url)
-			url_to_path(url)
-			fresh_path = @path.insert(-5, '_fresh') 
+			get_path(url)
+			fresh_path = @path.insert(-5, '_fresh')
 
-			if File.exist?(fresh_path)
-				FileUtils.rm(fresh_path) 
-			end
 			if File.exist?(@path)
 				FileUtils.rm(@path)
+				if File.exist?(fresh_path)
+					FileUtils.rm(fresh_path) 
+				end
 			end
 		end
 

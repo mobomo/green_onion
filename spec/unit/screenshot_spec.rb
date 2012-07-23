@@ -67,7 +67,7 @@ describe GreenOnion::Screenshot do
 
 		it "should destroy a set of screenshots" do
 		  @screenshot.destroy(@url)
-		  File.exist?(@file1).should be_false
+		  ( File.exist?(@file1) && File.exist?(@file2) ).should be_false
 		end
 	end
 end
