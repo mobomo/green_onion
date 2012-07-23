@@ -1,3 +1,6 @@
+
+[<img src="https://secure.travis-ci.org/tomeara/green_onion.png" />](http://travis-ci.org/#!/tomeara/green_onion)
+
 # GreenOnion
 
 Regression issues make you cry.
