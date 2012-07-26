@@ -1,9 +1,10 @@
-require "chunky_png"
+require "oily_png"
 
 module GreenOnion
 	class Compare
 
 		attr_accessor :percentage_changed, :total_px, :changed_px
+		attr_reader :diffed_image
 
 		# Pulled from Jeff Kreeftmeijer's post here: http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
 		# Thanks Jeff!
@@ -37,8 +38,15 @@ module GreenOnion
 			diff_images(org, fresh)
 			x, y = @diff.map{ |xy| xy[0] }, @diff.map{ |xy| xy[1] }
 
-			@images.last.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
-			@images.last.save(org.insert(-5, '_diff'))
+			@diffed_image = org.insert(-5, '_diff')
+
+			begin
+				@images.last.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
+			rescue NoMethodError
+				puts "#{org} and #{fresh} skins are the same."
+			end
+			
+			@images.last.save(@diffed_image)
 		end
 
 	end

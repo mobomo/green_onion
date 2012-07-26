@@ -12,9 +12,10 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "fileutils"
   gem.add_development_dependency "pry"
+  gem.add_development_dependency "debugger"
   
   gem.add_dependency "capybara"
-  gem.add_dependency "chunky_png"
+  gem.add_dependency "oily_png"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
