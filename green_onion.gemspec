@@ -13,6 +13,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "fileutils"
   gem.add_development_dependency "pry"
   gem.add_development_dependency "debugger"
+  gem.add_development_dependency "sinatra"
   
   gem.add_dependency "capybara"
   gem.add_dependency "oily_png"

@@ -31,6 +31,16 @@ The primary feature of GreenOnion is seeing how much (if at all) a view has chan
 
 Once you are aware of a issue in the UI, you can also rip open your spec/skins directory and manually see what the differences are from one screenshot to the next. Screenshots can either be viewed as a visual diff, or overlayed newest over oldest and viewed as an green_onion-skin with sliding transparency.
 
+## Contributing
+
+### Testing
+
+The best way to run the specs is with...
+
+		bundle exec rake spec
+
+...this way a Sinatra WEBrick server will run concurrently with the test suite, and exit on completion. You can see the Sinatra app in spec/sample_app.
+
 ## THANK YOU
 
 Much of this work could not be completed without these people and projects

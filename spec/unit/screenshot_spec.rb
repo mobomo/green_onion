@@ -11,8 +11,8 @@ describe GreenOnion::Screenshot do
   		@screenshot = GreenOnion::Screenshot.new(
 				:dir => @tmp_path
   		)
-			@url = 'http://www.google.com/maps'
-			@file = "#{@tmp_path}/maps.png"
+			@url = 'http://localhost:8070/fake_uri'
+			@file = "#{@tmp_path}/fake_uri.png"
   	end
 
 		after(:each) do
@@ -24,11 +24,11 @@ describe GreenOnion::Screenshot do
 	  end
 
 	  it 'should build the path from root' do
-  		@screenshot.url_to_path('http://www.google.com').should eq("#{@tmp_path}/root.png")
+  		@screenshot.url_to_path('http://localhost:8070').should eq("#{@tmp_path}/root.png")
 	  end
 
 	  it 'should build the path from root (even with trailing slash)' do
-  		@screenshot.url_to_path('http://www.google.com/').should eq("#{@tmp_path}/root.png")
+  		@screenshot.url_to_path('http://localhost:8070/').should eq("#{@tmp_path}/root.png")
 	  end
 
 	  it 'should snap and save screenshot' do
@@ -51,9 +51,9 @@ describe GreenOnion::Screenshot do
 			@screenshot = GreenOnion::Screenshot.new(
 				:dir => @tmp_path
 			)
-			@url = 'http://www.google.com/maps'
-			@file1 = "#{@tmp_path}/maps.png"
-			@file2 = "#{@tmp_path}/maps_fresh.png"
+			@url = 'http://localhost:8070/fake_uri'
+			@file1 = "#{@tmp_path}/fake_uri.png"
+			@file2 = "#{@tmp_path}/fake_uri_fresh.png"
 			2.times do
 				@screenshot.test_screenshot(@url)
 			end

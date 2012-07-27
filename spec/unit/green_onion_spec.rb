@@ -23,7 +23,7 @@ describe GreenOnion do
 
 	  it "should get the correct paths_hash" do
 		  2.times do
-			  GreenOnion.skin('http://www.google.com')
+			  GreenOnion.skin('http://localhost:8070')
 			end
 		  ( (GreenOnion.screenshot.paths_hash[:original] == "#{@tmp_path}/root.png") && 
 		  	(GreenOnion.screenshot.paths_hash[:fresh] == "#{@tmp_path}/root_fresh.png") ).should be_true
@@ -31,18 +31,24 @@ describe GreenOnion do
 
 		it "should measure the percentage of diff between skins" do	      
 		  2.times do
-			  GreenOnion.skin_percentage('http://www.google.com')
+			  GreenOnion.skin_percentage('http://localhost:8070')
 			end
-		  GreenOnion.compare.percentage_changed.should be <(1)
+		  GreenOnion.compare.percentage_changed.should be <(5)
 		end
 
-		it "should create visual diff between skins"
+		it "should create visual diff between skins" do      
+		  2.times do
+			  GreenOnion.skin_visual('http://localhost:8070/')
+			end
+			GreenOnion.compare.diffed_image.should eq('./spec/tmp/root_diff.png')
+		end
+
 
 		it "should create visual diff between skins (even when there is no change)" do	      
 		  2.times do
-			  GreenOnion.skin_visual('http://www.google.com')
+			  GreenOnion.skin_visual('http://localhost:8070/fake_uri')
 			end
-			GreenOnion.compare.diffed_image.should eq('./spec/tmp/root_diff.png')
+			GreenOnion.compare.diffed_image.should eq('./spec/tmp/fake_uri_diff.png')
 		end
 
 	end

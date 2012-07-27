@@ -27,6 +27,7 @@ module GreenOnion
 		def skin_percentage(url)
 			self.skin(url)
 			if(@screenshot.paths_hash.length > 1)
+				puts url
 				self.compare.percentage_diff(@screenshot.paths_hash[:original], @screenshot.paths_hash[:fresh])
 			end
 		end
