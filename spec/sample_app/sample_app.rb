@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require 'sinatra'
-require 'rack'
 
 class SampleApp < Sinatra::Base
   set :root, File.dirname(__FILE__)

@@ -2,6 +2,11 @@ require 'spec_helper'
 
 describe GreenOnion::Screenshot do
 
+	before(:all) do
+		@url = 'http://localhost:8070'
+		@url_w_uri = @url + '/fake_uri'
+	end
+
   describe 'Snap single screenshot' do
 
 		before(:each) do
@@ -11,7 +16,6 @@ describe GreenOnion::Screenshot do
   		@screenshot = GreenOnion::Screenshot.new(
 				:dir => @tmp_path
   		)
-			@url = 'http://localhost:8070/fake_uri'
 			@file = "#{@tmp_path}/fake_uri.png"
   	end
 
@@ -20,7 +24,7 @@ describe GreenOnion::Screenshot do
 		end
 
 	  it 'should build the path from the URI' do
-  		@screenshot.url_to_path(@url).should eq(@file)
+  		@screenshot.url_to_path(@url_w_uri).should eq(@file)
 	  end
 
 	  it 'should build the path from root' do
@@ -32,12 +36,12 @@ describe GreenOnion::Screenshot do
 	  end
 
 	  it 'should snap and save screenshot' do
-  		@screenshot.snap_screenshot(@url, @file)
+  		@screenshot.snap_screenshot(@url_w_uri, @file)
   		File.exist?(@file).should be_true
 	  end
 
 		it "should destroy a singular screenshot" do
-		  @screenshot.destroy(@url)
+		  @screenshot.destroy(@url_w_uri)
   		File.exist?(@file).should be_false
 		end
 	end
@@ -51,11 +55,10 @@ describe GreenOnion::Screenshot do
 			@screenshot = GreenOnion::Screenshot.new(
 				:dir => @tmp_path
 			)
-			@url = 'http://localhost:8070/fake_uri'
 			@file1 = "#{@tmp_path}/fake_uri.png"
 			@file2 = "#{@tmp_path}/fake_uri_fresh.png"
 			2.times do
-				@screenshot.test_screenshot(@url)
+				@screenshot.test_screenshot(@url_w_uri)
 			end
 		end
 
@@ -74,7 +77,7 @@ describe GreenOnion::Screenshot do
 		end
 
 		it "should destroy a set of screenshots" do
-		  @screenshot.destroy(@url)
+		  @screenshot.destroy(@url_w_uri)
 		  ( File.exist?(@file1) && File.exist?(@file2) ).should be_false
 		end
 	end

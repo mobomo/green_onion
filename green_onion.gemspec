@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   
   gem.add_dependency "capybara"
   gem.add_dependency "oily_png"
+  gem.add_dependency "rainbow"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
