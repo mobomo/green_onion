@@ -11,15 +11,15 @@ GreenOnion is a testing library for the UI only. It alerts you when the appearan
 
 Add this line to your application's Gemfile:
 
-    `gem 'green_onion'`
+    gem 'green_onion'
 
 And then execute:
 
-    `bundle`
+    bundle
 
 Or install it yourself as:
 
-    `gem install green_onion`
+    gem install green_onion
 
 ## Usage
 
@@ -27,10 +27,10 @@ Or install it yourself as:
 
 For RSpec, `require 'green_onion'` in your spec_helper.rb file. Place this block in the file also:
 
-    `GreenOnion.configure do |c|
-	    c.skins_dir = 'spec/skins'
-	  	c.threshold = 20
-	  end`
+    GreenOnion.configure do |c|
+      c.skins_dir = 'spec/skins'
+      c.threshold = 20
+    end
 
 * `skins_dir` is the directory that GreenOnion will store all skins. The namespace for skins is {URI name}.png (original), {URI name}_fresh.png (testing), and {URI name}_diff.png
 * `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
@@ -39,7 +39,7 @@ Then use one of the three methods below in a test...
 
 ### Percentage of change
 
-    `GreenOnion.skin_percentage(url, threshold {optional})`
+    GreenOnion.skin_percentage(url, threshold {optional})
 The primary feature of GreenOnion is seeing how much (if at all) a view has changed from one instance to the next, and being alerted when a view has surpassed into an unacceptable threshold.
 
 * `url` is the screen you want tested. Must include http://, example - 'http://yourSite.com'
@@ -47,14 +47,15 @@ The primary feature of GreenOnion is seeing how much (if at all) a view has chan
 
 ### Viewing screenshot diffs
 
-    `GreenOnion.skin_visual(url)`
+    GreenOnion.skin_visual(url)
 Once you are aware of a issue in the UI, you can also rip open your spec/skins directory and manually see what the differences are from one screenshot to the next.
 
 * `url` is the screen you want tested. Must include http://, example - 'http://yourSite.com'
 
 ### Both viewing screenshot diffs and percentage of change
 
-
+    GreenOnion.skin_percentage(url, threshold {optional})
+This is just a combination of the two methods above.
 
 ## Contributing
 
@@ -62,7 +63,7 @@ Once you are aware of a issue in the UI, you can also rip open your spec/skins d
 
 The best way to run the specs is with...
 
-    `bundle exec rake spec`
+    bundle exec rake spec
 
 ...this way a Sinatra WEBrick server will run concurrently with the test suite, and exit on completion. You can see the Sinatra app in spec/sample_app.
 
