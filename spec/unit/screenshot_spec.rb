@@ -5,16 +5,18 @@ describe GreenOnion::Screenshot do
 	before(:all) do
 		@url = 'http://localhost:8070'
 		@url_w_uri = @url + '/fake_uri'
+		@tmp_path = './spec/tmp'
+		@dimensions = { :width => 1024, :height => 768 }
 	end
 
   describe 'Snap single screenshot' do
 
 		before(:each) do
-			@tmp_path = './spec/tmp'
 			FileUtils.mkdir(@tmp_path)
 
   		@screenshot = GreenOnion::Screenshot.new(
-				:dir => @tmp_path
+				:dir => @tmp_path,
+				:dimensions => @dimensions
   		)
 			@file = "#{@tmp_path}/fake_uri.png"
   	end
@@ -49,11 +51,11 @@ describe GreenOnion::Screenshot do
 	describe 'Snap two screenshots' do
 
 		before(:each) do
-			@tmp_path = './spec/tmp'
 			FileUtils.mkdir(@tmp_path)
 
 			@screenshot = GreenOnion::Screenshot.new(
-				:dir => @tmp_path
+				:dir => @tmp_path,
+				:dimensions => @dimensions
 			)
 			@file1 = "#{@tmp_path}/fake_uri.png"
 			@file2 = "#{@tmp_path}/fake_uri_fresh.png"

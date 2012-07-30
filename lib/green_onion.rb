@@ -21,7 +21,8 @@ module GreenOnion
 		# Bring the Screenshot and Compare classes together to create a skin
 		def skin(url)
 			@screenshot = Screenshot.new(
-				:dir => @configuration.skins_dir
+				:dir => @configuration.skins_dir,
+				:dimensions => @configuration.dimensions
 			)
 			@compare = GreenOnion::Compare.new
 
@@ -31,12 +32,13 @@ module GreenOnion
 		# Finds the percentage of change between skins
 		# Threshold can be set in configuration, or as an argument itself, and can be specific to an instance
 		def skin_percentage(url, threshold=@configuration.threshold)
-			threshold ||= 100
 			skin(url)
 			if(@screenshot.paths_hash.length > 1)
 				puts "\n" + url.color(:cyan)
 				@compare.percentage_diff(@screenshot.paths_hash[:original], @screenshot.paths_hash[:fresh])
 				threshold_alert(@compare.percentage_changed, threshold)
+			else
+				puts "\n#{url}".color(:cyan) + " has been saved to #{@screenshot.paths_hash[:original]}".color(:yellow)
 			end
 		end
 
@@ -46,6 +48,8 @@ module GreenOnion
 			if(@screenshot.paths_hash.length > 1)
 				puts "\n" + url.color(:cyan)
 				@compare.visual_diff(@screenshot.paths_hash[:original], @screenshot.paths_hash[:fresh])
+			else
+				puts "\n#{url}".color(:cyan) + " has been saved to #{@screenshot.paths_hash[:original]}".color(:yellow)
 			end
 		end
 
@@ -57,6 +61,8 @@ module GreenOnion
 				@compare.percentage_diff(@screenshot.paths_hash[:original], @screenshot.paths_hash[:fresh])
 				@compare.visual_diff(@screenshot.paths_hash[:original], @screenshot.paths_hash[:fresh])
 				threshold_alert(@compare.percentage_changed, threshold)
+			else
+				puts "\n#{url}".color(:cyan) + " has been saved to #{@screenshot.paths_hash[:original]}".color(:yellow)
 			end
 		end
 

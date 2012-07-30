@@ -1,22 +1,25 @@
 require 'capybara/dsl'
+require 'capybara-webkit'
 require "fileutils"
+require "debugger"
 
 module GreenOnion
 	class Screenshot
 		include Capybara::DSL
 
-		attr_accessor :dir 
+		attr_accessor :dir, :dimensions 
 		attr_reader :paths_hash
 
 		def initialize(params = {})
-			Capybara.default_driver = :selenium
+			Capybara.default_driver = :webkit
+			@dimensions = params[:dimensions]
 			@dir = params[:dir]
 			@paths_hash = {}
 		end
 
 		def snap_screenshot(url, path)
 			visit url
-			Capybara.page.driver.browser.save_screenshot(path)
+			Capybara.page.driver.render(path, @dimensions)
 		end
 
 		def test_screenshot(url)
@@ -32,7 +35,6 @@ module GreenOnion
 			else
 				@shot_path = @paths_hash[:original]
 			end
-			return @shot_path
 		end	
 
 		def get_path(url)

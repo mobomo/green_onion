@@ -51,7 +51,7 @@ module GreenOnion
 			begin
 				@images.last.rect(x.min, y.min, x.max, y.max, ChunkyPNG::Color.rgb(0,255,0))
 			rescue NoMethodError
-				puts "#{org} and #{fresh} skins are the same.".color(:yellow)
+				puts "Both skins are the same.".color(:yellow)
 			end
 			
 			@images.last.save(@diffed_image)

@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "sinatra"
   
   gem.add_dependency "capybara"
+  gem.add_dependency "capybara-webkit"
   gem.add_dependency "oily_png"
   gem.add_dependency "rainbow"
 

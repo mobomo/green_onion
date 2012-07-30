@@ -2,23 +2,29 @@ require "spec_helper"
 
 describe GreenOnion do
 
+	before(:all) do
+		@tmp_path = './spec/tmp'
+		@url = 'http://localhost:8070'
+		@url_w_uri = @url + '/fake_uri'
+	end
+
 	describe "Skins" do
-	  
 	  before(:each) do	
-			@tmp_path = './spec/tmp'
-			@url = 'http://localhost:8070'
-			@url_w_uri = @url + '/fake_uri'
 			FileUtils.mkdir(@tmp_path)
 
 	    GreenOnion.configure do |c|
 	    	c.skins_dir = @tmp_path
-	    	c.threshold = 1
 	    end
 	  end
 
 		after(:each) do
 			FileUtils.rm_r(@tmp_path, :force => true)
 		end
+
+		it "should default to 1024x768 browser dimensions" do
+			( (GreenOnion.configuration.dimensions[:height] == 768) && 
+				(GreenOnion.configuration.dimensions[:width] == 1024) ).should be_true
+	  end
 
 	  it "should set/get custom directory" do
 	    GreenOnion.configuration.skins_dir.should eq(@tmp_path)
@@ -46,15 +52,8 @@ describe GreenOnion do
 		  GreenOnion.compare.percentage_changed.should be == 0
 		end
 
-		it "should alert when diff percentage threshold is surpassed" do
-			$stdout.should_receive(:puts).exactly(4).times
-		  2.times do
-			  GreenOnion.skin_percentage(@url)
-			end
-		end
-
 		it "should print just URL and changed/total when diff percentage threshold has not been surpassed" do
-			$stdout.should_receive(:puts).exactly(2).times
+			$stdout.should_receive(:puts).exactly(3).times
 		  2.times do
 			  GreenOnion.skin_percentage(@url, 6)
 			end
@@ -66,7 +65,6 @@ describe GreenOnion do
 			end
 			GreenOnion.compare.diffed_image.should eq("#{@tmp_path}/root_diff.png")
 		end
-
 
 		it "should create visual diff between skins (even when there is no change)" do	      
 		  2.times do
@@ -82,6 +80,47 @@ describe GreenOnion do
 			( (GreenOnion.compare.diffed_image.should eq("#{@tmp_path}/root_diff.png")) &&
 		  	(GreenOnion.compare.percentage_changed.should be > 0) ).should be_true
 		end
+	end
 
+	describe "Skins with custom dimensions" do
+	  before(:each) do	
+			FileUtils.mkdir(@tmp_path)
+
+	    GreenOnion.configure do |c|
+	    	c.skins_dir = @tmp_path
+	    	c.dimensions = { :width => 1440, :height => 900 }
+	    end
+	  end
+
+		after(:each) do
+			FileUtils.rm_r(@tmp_path, :force => true)
+		end
+
+		it "should allow custom browser dimensions" do
+			( (GreenOnion.configuration.dimensions[:height] == 900) && 
+				(GreenOnion.configuration.dimensions[:width] == 1440) ).should be_true
+	  end
+	end
+
+	describe "Skins with custom threshold" do
+	  before(:each) do	
+			FileUtils.mkdir(@tmp_path)
+
+	    GreenOnion.configure do |c|
+	    	c.skins_dir = @tmp_path
+	    	c.threshold = 1
+	    end
+	  end
+
+		after(:each) do
+			FileUtils.rm_r(@tmp_path, :force => true)
+		end
+
+		it "should alert when diff percentage threshold is surpassed" do
+			$stdout.should_receive(:puts).exactly(5).times
+		  2.times do
+			  GreenOnion.skin_percentage(@url)
+			end
+		end
 	end
 end

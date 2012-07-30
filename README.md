@@ -9,6 +9,8 @@ GreenOnion is a testing library for the UI only. It alerts you when the appearan
 
 ## Installation
 
+You'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) to get it up and running.
+
 Add this line to your application's Gemfile:
 
     gem 'green_onion'
@@ -28,12 +30,14 @@ Or install it yourself as:
 For RSpec, `require 'green_onion'` in your spec_helper.rb file. Place this block in the file also:
 
     GreenOnion.configure do |c|
-      c.skins_dir = 'spec/skins'
+      c.skins_dir = 'your/path/to/skins'
       c.threshold = 20
+      c.dimensions = { :width => 1440, :height => 768 }
     end
 
-* `skins_dir` is the directory that GreenOnion will store all skins. The namespace for skins is {URI name}.png (original), {URI name}_fresh.png (testing), and {URI name}_diff.png
+* `skins_dir` is the directory that GreenOnion will store all skins. The namespace for skins is {URI name}.png (original), {URI name}_fresh.png (testing), and {URI name}_diff.png. The default directory will be './spec/skins'
 * `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
+* `dimensions` is a hash with the height and width of the browser window. The default dimensions are 1024x768.
 
 Then use one of the three methods below in a test...
 
@@ -54,7 +58,7 @@ Once you are aware of a issue in the UI, you can also rip open your spec/skins d
 
 ### Both viewing screenshot diffs and percentage of change
 
-    GreenOnion.skin_percentage(url, threshold {optional})
+    GreenOnion.skin_visual_and_percentage(url, threshold {optional})
 This is just a combination of the two methods above.
 
 ## Contributing
@@ -70,7 +74,8 @@ The best way to run the specs is with...
 ## Roadmap
 
 * Screenshots can either be viewed as a visual diff, or overlayed newest over oldest and viewed as an onion-skin with sliding transparency.
-* Allow for headless screenshooting
+* Allow for flexibility in picking browsers
+* Run through all paths in a Rails app
 * More robust tests, especially around the visual diffs themselves
 * More documentation
 * More configuration/customizable settings
