@@ -15,11 +15,18 @@ module GreenOnion
 				ChunkyPNG::Image.from_file(fresh)
 			]
 
-			@diff = []
+			@diff_index = []
 
 			@images.first.height.times do |y|
 				@images.first.row(y).each_with_index do |pixel, x|
-					@diff << [x,y] unless pixel == @images.last[x,y]
+					unless pixel == @images.last[x,y]
+						@diff_index << [x,y] 
+						@images.last[x,y] = ChunkyPNG::Color.rgb(
+				      ChunkyPNG::Color.r(pixel) + ChunkyPNG::Color.r(@images.last[x,y]) - 2 * [ChunkyPNG::Color.r(pixel), ChunkyPNG::Color.r(@images.last[x,y])].min,
+				      ChunkyPNG::Color.g(pixel) + ChunkyPNG::Color.g(@images.last[x,y]) - 2 * [ChunkyPNG::Color.g(pixel), ChunkyPNG::Color.g(@images.last[x,y])].min,
+				      ChunkyPNG::Color.b(pixel) + ChunkyPNG::Color.b(@images.last[x,y]) - 2 * [ChunkyPNG::Color.b(pixel), ChunkyPNG::Color.b(@images.last[x,y])].min
+				    )
+					end
 				end
 			end
 		end
@@ -27,8 +34,8 @@ module GreenOnion
 		def percentage_diff(org, fresh)
 			diff_images(org, fresh)
 			@total_px = @images.first.pixels.length
-			@changed_px = @diff.length
-			@percentage_changed = ( (@diff.length.to_f / @images.first.pixels.length) * 100 ).round(2)
+			@changed_px = @diff_index.length
+			@percentage_changed = ( (@diff_index.length.to_f / @images.first.pixels.length) * 100 ).round(2)
 		end
 
 		def visual_diff(org, fresh)
@@ -39,12 +46,12 @@ module GreenOnion
 		def percentage_and_visual_diff(org, fresh)
 			diff_images(org, fresh)
 			@total_px = @images.first.pixels.length
-			@changed_px = @diff.length
-			@percentage_changed = ( (@diff.length.to_f / @images.first.pixels.length) * 100 ).round(2)
+			@changed_px = @diff_index.length
+			@percentage_changed = ( (@diff_index.length.to_f / @images.first.pixels.length) * 100 ).round(2)
 		end
 
 		def diff_iterating(org, fresh)
-			x, y = @diff.map{ |xy| xy[0] }, @diff.map{ |xy| xy[1] }
+			x, y = @diff_index.map{ |xy| xy[0] }, @diff_index.map{ |xy| xy[1] }
 
 			@diffed_image = org.insert(-5, '_diff')
 
