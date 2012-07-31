@@ -10,15 +10,15 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
-  gem.add_development_dependency "fileutils"
   gem.add_development_dependency "pry"
   gem.add_development_dependency "debugger"
   gem.add_development_dependency "sinatra"
   
-  gem.add_dependency "capybara"
-  gem.add_dependency "capybara-webkit"
-  gem.add_dependency "oily_png"
-  gem.add_dependency "rainbow"
+  gem.add_dependency "capybara", "1.1.2"
+  gem.add_dependency "capybara-webkit", "0.12.1"
+  gem.add_dependency "oily_png", "1.0.2"
+  gem.add_dependency "rainbow", "1.1.4"
+  gem.add_dependency "fileutils", "0.7"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }

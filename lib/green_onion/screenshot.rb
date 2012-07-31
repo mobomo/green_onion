@@ -1,7 +1,6 @@
 require 'capybara/dsl'
 require 'capybara-webkit'
 require "fileutils"
-require "debugger"
 
 module GreenOnion
   class Screenshot
