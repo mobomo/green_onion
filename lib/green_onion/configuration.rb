@@ -1,23 +1,23 @@
 module GreenOnion
-	class Configuration
+  class Configuration
 
-		attr_writer :threshold, :skins_dir
+    attr_writer :threshold, :skins_dir
 
-		def dimensions=(options)
-			@dimensions = { :width => options[:width], :height => options[:height] }
-		end
+    def dimensions=(options)
+      @dimensions = { :width => options[:width], :height => options[:height] }
+    end
+    
+    def dimensions
+      @dimensions ||= { :height => 768, :width => 1024 }
+    end
 
-		def dimensions
-			@dimensions ||= { :height => 768, :width => 1024 }
-		end
+    def threshold
+      @threshold ||= 100
+    end
 
-		def threshold
-			@threshold ||= 100
-		end
+    def skins_dir
+      @skins_dir ||= './spec/skins'
+    end
 
-		def skins_dir
-			@skins_dir ||= './spec/skins'
-		end
-
-	end
+  end
 end
