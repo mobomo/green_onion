@@ -4,7 +4,7 @@ module GreenOnion
     attr_writer :threshold, :skins_dir
 
     def dimensions=(options)
-      @dimensions = { :width => options[:width], :height => options[:height] }
+      @dimensions = options
     end
     
     def dimensions
