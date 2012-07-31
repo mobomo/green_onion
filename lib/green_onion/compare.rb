@@ -16,7 +16,14 @@ module GreenOnion
       ]
 
       @diff_index = []
+      begin
+        diff_iterator
+      rescue ChunkyPNG::OutOfBounds
+        puts "Skins are different sizes. Please delete #{org} and/or #{fresh}.".color(:yellow)
+      end
+    end
 
+    def diff_iterator
       @images.first.height.times do |y|
         @images.first.row(y).each_with_index do |pixel, x|
           unless pixel == @images.last[x,y]

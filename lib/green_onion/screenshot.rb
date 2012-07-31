@@ -48,10 +48,14 @@ module GreenOnion
 
     def destroy(url)
       get_path(url)
-      if File.exist?( @paths_hash[:original] )
-        FileUtils.rm( @paths_hash[:original] )
-        if File.exist?( @paths_hash[:fresh] )
-          FileUtils.rm( @paths_hash[:fresh] ) 
+      destroy_files(@paths_hash[:original], @paths_hash[:fresh])
+    end
+
+    def destroy_files(org, fresh)
+      if File.exist?(org)
+        FileUtils.rm(org)
+        if File.exist?(fresh)
+          FileUtils.rm(fresh) 
         end
       end
     end

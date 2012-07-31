@@ -8,6 +8,7 @@ describe GreenOnion::Compare do
       @comparison = GreenOnion::Compare.new
       @spec_shot1 = './spec/skins/spec_shot.png'
       @spec_shot2 = './spec/skins/spec_shot_fresh.png'
+      @spec_shot_resize = './spec/skins/spec_shot_resize.png'
       @diff_shot = './spec/skins/spec_shot_diff.png'
     end
 
@@ -24,5 +25,10 @@ describe GreenOnion::Compare do
       @comparison.visual_diff(@spec_shot1, @spec_shot2)
       File.exist?(@diff_shot).should be_true
     end
+
+    it "should not throw error when dimensions are off" do
+      expect { @comparison.visual_diff(@spec_shot1, @spec_shot_resize) }.to_not raise_error
+    end
+
   end
 end
