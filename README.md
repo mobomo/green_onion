@@ -45,7 +45,7 @@ Options
 
 To generate a "skinner" file, which will test a Rails application with the routes without params included (this is an area that could be worked on a lot more :) ); use the command below:
 
-  green_onion generate [options]
+    green_onion generate [options]
 
 * `--url=URL` - the domain that you will be testing your Rails app. The default is "http://localhost:3000".
 * `--dir=DIR` - the directory in which you would like to generate the skinner. The default is "spec/skinner.rb"
@@ -117,3 +117,12 @@ Carol Nichols saw the same post, and worked on an excellent gem for cross-browse
 
 ### Capybara, ChunkyPNG, Thor, and OilyPNG
 The land on which we sow our bulbs.
+
+## Contributor
+[Ted O'Meara](http://www.intridea.com/about/team/ted-o-meara)
+
+## License
+MIT License. See LICENSE for details.
+
+## Copyright
+Copyright (c) 2012 Intridea, Inc.
