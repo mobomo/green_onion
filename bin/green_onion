@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "green_onion/cli"
+
+GreenOnion::CLI.start

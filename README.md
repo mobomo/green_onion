@@ -3,7 +3,7 @@
 
 # GreenOnion
 
-Regression issues make you cry.
+Regression issues in the view make you cry.
 
 GreenOnion is a testing library for the UI only. It alerts you when the appearance of a view has changed, let's you know the percentage of total change, and allows you to visualize the areas that have been changed. It fits right into your test suite, and is dependent on familiar tools like Capybara.
 
@@ -25,9 +25,34 @@ Or install it yourself as:
 
 ## Usage
 
-### RSpec
+### Command Line Interface
 
-For RSpec, `require 'green_onion'` in your spec_helper.rb file. Place this block in the file also:
+#### Skinning
+
+To just run a comparison between skins in your shell, you can use the command below:
+
+    green_onion skin <url> [options]
+
+Options
+* `<url>` - is the screen you want tested. Must include http://, example - 'http://yourSite.com'
+* `--dir=DIR` - the directory that GreenOnion will store all skins. The namespace for skins is {URI name}.png (original), {URI name}_fresh.png (testing), and {URI name}_diff.png. The default directory will be './spec/skins'
+* `--method=[p, v, vp]` - the method in which you'd like to compare the skins. `p` is for percentage, `v` is for visual. The default is visual and percentage.
+* `--threshold=[1-100]` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
+* `--width=[number]` is the width of the browser window. The default width is 1024.
+* `--height=[number]` is the height of the browser window. The default height is 768.
+
+#### Generating skinner file
+
+To generate a "skinner" file, which will test a Rails application with the routes without params included (this is an area that could be worked on a lot more :) ); use the command below:
+
+  green_onion generate [options]
+
+* `--url=URL` - the domain that you will be testing your Rails app. The default is "http://localhost:3000".
+* `--dir=DIR` - the directory in which you would like to generate the skinner. The default is "spec/skinner.rb"
+
+### Adding GreenOnion to integration tests with RSpec
+
+For adding GreenOnion to your integration tests in RSpec, add `require 'green_onion'` to your spec_helper.rb file. Place this block in the file also:
 
     GreenOnion.configure do |c|
       c.skins_dir = 'your/path/to/skins'
@@ -41,22 +66,22 @@ For RSpec, `require 'green_onion'` in your spec_helper.rb file. Place this block
 
 Then use one of the three methods below in a test...
 
-### Percentage of change
+#### Percentage of change
 
-    GreenOnion.skin_percentage(url, threshold {optional})
+    GreenOnion.skin_percentage(url, threshold [optional])
 The primary feature of GreenOnion is seeing how much (if at all) a view has changed from one instance to the next, and being alerted when a view has surpassed into an unacceptable threshold.
 
 * `url` is the screen you want tested. Must include http://, example - 'http://yourSite.com'
 * `threshold` can be overwritten here, or if not given in the configure block – it will default to a threshold of 100%
 
-### Viewing screenshot diffs
+#### Viewing screenshot diffs
 
     GreenOnion.skin_visual(url)
 Once you are aware of a issue in the UI, you can also rip open your spec/skins directory and manually see what the differences are from one screenshot to the next.
 
 * `url` is the screen you want tested. Must include http://, example - 'http://yourSite.com'
 
-### Both viewing screenshot diffs and percentage of change
+#### Both viewing screenshot diffs and percentage of change
 
     GreenOnion.skin_visual_and_percentage(url, threshold {optional})
 This is just a combination of the two methods above.
@@ -75,7 +100,7 @@ The best way to run the specs is with...
 
 * Screenshots can either be viewed as a visual diff, or overlayed newest over oldest and viewed as an onion-skin with sliding transparency.
 * Allow for flexibility in picking browsers
-* Run through all paths in a Rails app
+* Skinner generator needs love <3
 * More robust tests, especially around the visual diffs themselves
 * More documentation
 * More configuration/customizable settings
@@ -90,5 +115,5 @@ This is the post that got the wheels in motion: http://jeffkreeftmeijer.com/2011
 ### Compatriot
 Carol Nichols saw the same post, and worked on an excellent gem for cross-browser testing. That gem greatly influenced design decisions with GreenOnion.
 
-### Capybara and ChunkyPNG
+### Capybara, ChunkyPNG, Thor, and OilyPNG
 The land on which we sow our bulbs.

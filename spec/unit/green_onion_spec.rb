@@ -117,7 +117,7 @@ describe GreenOnion do
     end
 
     it "should alert when diff percentage threshold is surpassed" do
-      $stdout.should_receive(:puts).exactly(5).times
+      $stderr.should_receive(:puts).exactly(3).times
       2.times do
         GreenOnion.skin_percentage(@url)
       end
