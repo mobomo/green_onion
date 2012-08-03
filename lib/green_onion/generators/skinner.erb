@@ -17,5 +17,5 @@ all_routes = Rails.application.routes.routes
 routes = all_routes.collect { |r| r.path.spec.to_s.gsub(/\/*(\(\.)*:(\w*)(\))*\/*/, "") }.delete_if(&:empty?)
 
 routes.each do |route|
-  GreenOnion.skin_percentage(url + route)
+  GreenOnion.skin_visual_and_percentage("<%= config[:url] %>" + route)
 end

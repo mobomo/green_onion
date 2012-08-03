@@ -101,6 +101,7 @@ The best way to run the specs is with...
 * Screenshots can either be viewed as a visual diff, or overlayed newest over oldest and viewed as an onion-skin with sliding transparency.
 * Allow for flexibility in picking browsers
 * Skinner generator needs love <3
+** Should allow for testing using fixtures/factories
 * More robust tests, especially around the visual diffs themselves
 * More documentation
 * More configuration/customizable settings

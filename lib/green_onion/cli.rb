@@ -5,7 +5,7 @@ module GreenOnion
   class CLI < Thor
     include Thor::Actions
 
-    self.source_root("lib/green_onion/generators")
+    source_root File.expand_path('../generators', __FILE__)
 
     class_option :dir, :aliases => "-d", :type => :string
 
@@ -30,12 +30,12 @@ module GreenOnion
       end
     end
 
-    desc "generate", "Generates a 'skinner' file to test a Rails app at <url> with routes without params"
+    desc "generate", "Generates a 'skinner' file to test only Rails routes without params"
     method_option :url, :aliases => "-u", :type => :string
     def generate_skinner
       options[:dir] ? dir = options[:dir] : dir = "spec"
-      options[:url] ? url = options[:url] : url = "http://localhost:3000"
-      template('skinner.erb', "#{dir}/skinner.rb")
+      options[:url] ? config = { :url => options[:url] } : config = { :url => "http://localhost:3000" }
+      template('skinner.erb', "#{dir}/skinner.rb", config)
     end
   end
 end
