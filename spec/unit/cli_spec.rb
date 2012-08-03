@@ -29,8 +29,14 @@ describe "bin/green_onion" do
     end     
 
     it "should build the skinner file" do
-      `bin/green_onion generate --url=#{@url} --dir=#{@tmp_path}`
+      `bin/green_onion generate --dir=#{@tmp_path}`
       File.exist?(@skinner_file).should be_true
+    end
+
+    it "should build the skinner file with the url included correctly" do
+      `bin/green_onion generate --url=#{@url} --dir=#{@tmp_path}`
+      skinner = IO.read(@skinner_file)
+      skinner.should include("GreenOnion.skin_visual_and_percentage(\"http://localhost:8070\" + route)")
     end
     
   end
