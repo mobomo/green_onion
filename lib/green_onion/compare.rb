@@ -19,7 +19,7 @@ module GreenOnion
       begin
         diff_iterator
       rescue ChunkyPNG::OutOfBounds
-        puts "Skins are different sizes. Please delete #{org} and/or #{fresh}.".color(:yellow)
+        warn "Skins are different sizes. Please delete #{org} and/or #{fresh}.".color(:yellow)
       end
     end
 

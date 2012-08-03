@@ -2,6 +2,7 @@ require "green_onion/version"
 require "green_onion/screenshot"
 require "green_onion/compare"
 require "green_onion/configuration"
+require "green_onion/errors"
 require "rainbow"
 
 module GreenOnion
@@ -32,6 +33,8 @@ module GreenOnion
     # Finds the percentage of change between skins
     # Threshold can be set in configuration, or as an argument itself, and can be specific to an instance
     def skin_percentage(url, threshold=@configuration.threshold)
+      raise Errors::ThresholdOutOfRange.new "The threshold need to be a number between 1 and 100" if threshold > 100
+
       skin(url)
       if(@screenshot.paths_hash.length > 1)
         puts "\n" + url.color(:cyan)
@@ -55,6 +58,8 @@ module GreenOnion
 
     # Creates a diffed screenshot between skins AND prints percentage changed
     def skin_visual_and_percentage(url, threshold=@configuration.threshold)
+      raise Errors::ThresholdOutOfRange.new "The threshold need to be a number between 1 and 100" if threshold > 100
+      
       skin(url)
       if(@screenshot.paths_hash.length > 1)
         puts "\n" + url.color(:cyan)

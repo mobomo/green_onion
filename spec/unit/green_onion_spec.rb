@@ -10,8 +10,6 @@ describe GreenOnion do
 
   describe "Skins" do
     before(:each) do  
-      FileUtils.mkdir(@tmp_path)
-
       GreenOnion.configure do |c|
         c.skins_dir = @tmp_path
       end
@@ -84,8 +82,6 @@ describe GreenOnion do
 
   describe "Skins with custom dimensions" do
     before(:each) do  
-      FileUtils.mkdir(@tmp_path)
-
       GreenOnion.configure do |c|
         c.skins_dir = @tmp_path
         c.dimensions = { :width => 1440, :height => 900 }
@@ -104,8 +100,6 @@ describe GreenOnion do
 
   describe "Skins with custom threshold" do
     before(:each) do  
-      FileUtils.mkdir(@tmp_path)
-
       GreenOnion.configure do |c|
         c.skins_dir = @tmp_path
         c.threshold = 1
@@ -121,6 +115,30 @@ describe GreenOnion do
       2.times do
         GreenOnion.skin_percentage(@url)
       end
+    end
+  end
+
+  describe "Errors" do
+    before(:each) do  
+      GreenOnion.configure do |c|
+        c.skins_dir = @tmp_path
+      end
+    end
+
+    after(:each) do
+      FileUtils.rm_r(@tmp_path, :force => true)
+    end
+
+    it "should raise error for when ill-formatted URL is used" do
+      expect { GreenOnion.skin_percentage("localhost") }.to raise_error(GreenOnion::Errors::IllformattedURL)
+    end
+
+    it "should raise error for when threshold is out of range for skin_percentage" do
+      expect { GreenOnion.skin_percentage(@url, 101) }.to raise_error(GreenOnion::Errors::ThresholdOutOfRange)
+    end
+
+    it "should raise error for when threshold is out of range for skin_visual_and_percentage" do
+      expect { GreenOnion.skin_visual_and_percentage(@url, 101) }.to raise_error(GreenOnion::Errors::ThresholdOutOfRange)
     end
   end
 end

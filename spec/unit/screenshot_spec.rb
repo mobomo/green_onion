@@ -12,8 +12,6 @@ describe GreenOnion::Screenshot do
   describe 'Snap single screenshot' do
 
     before(:each) do
-      FileUtils.mkdir(@tmp_path)
-
       @screenshot = GreenOnion::Screenshot.new(
         :dir => @tmp_path,
         :dimensions => @dimensions
@@ -51,8 +49,6 @@ describe GreenOnion::Screenshot do
   describe 'Snap two screenshots' do
 
     before(:each) do
-      FileUtils.mkdir(@tmp_path)
-
       @screenshot = GreenOnion::Screenshot.new(
         :dir => @tmp_path,
         :dimensions => @dimensions

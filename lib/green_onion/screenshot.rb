@@ -36,8 +36,17 @@ module GreenOnion
       end
     end  
 
+    def url_matcher(url)
+      url_match = url.match(/^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/).to_a.compact
+      if url_match.length >= 5
+        @filename = url_match[5]
+      else
+        raise Errors::IllformattedURL.new "Your URL is incorrectly formatted. Please make sure to use http://"
+      end
+    end
+
     def get_path(url)
-      @filename = url.match(/^(([^:\/?#]+):)?(\/\/([^\/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?/)[5]
+      url_matcher(url)
       if @filename.empty? || @filename == '/' 
         @paths_hash[:original] = "#{@dir}/root.png"
       else

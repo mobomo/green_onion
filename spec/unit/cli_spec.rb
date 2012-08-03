@@ -11,10 +11,6 @@ describe "bin/green_onion" do
 
   describe "Skin Utility" do
 
-    before(:each) do  
-      FileUtils.mkdir(@tmp_path)
-    end
-
     after(:each) do
       FileUtils.rm_r(@tmp_path, :force => true)
     end     
@@ -27,10 +23,6 @@ describe "bin/green_onion" do
   end
 
   describe "Generator" do
-
-    before(:each) do  
-      FileUtils.mkdir(@tmp_path)
-    end
 
     after(:each) do
       FileUtils.rm_r(@tmp_path, :force => true)
