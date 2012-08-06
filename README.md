@@ -1,11 +1,15 @@
 
-[<img src="https://secure.travis-ci.org/tomeara/green_onion.png" />](http://travis-ci.org/#!/tomeara/green_onion)
+[<img src="https://secure.travis-ci.org/tomeara/green_onion.png" />](http://travis-ci.org/#!/tomeara/green_onion) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/tomeara/green_onion)
 
 # GreenOnion
 
 Regression issues in the view make you cry.
 
 GreenOnion is a testing library for the UI only. It alerts you when the appearance of a view has changed, let's you know the percentage of total change, and allows you to visualize the areas that have been changed. It fits right into your test suite, and is dependent on familiar tools like Capybara.
+
+## Documentation
+
+[RDoc](http://rdoc.info/gems/green_onion/frames)
 
 ## Installation
 
