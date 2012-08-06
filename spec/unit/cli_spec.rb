@@ -20,6 +20,12 @@ describe "bin/green_onion" do
       File.exist?(@file1).should be_true
     end
 
+    it "should run the skin task w/ --method=p flag to run only percentage diff" do
+      stdin, stdout, stderr = Open3.popen3("bin/green_onion skin #{@url} --dir=#{@tmp_path} --method=p --threshold=1 &&
+                                            bin/green_onion skin #{@url} --dir=#{@tmp_path} --method=p --threshold=1")
+      stderr.readlines.to_s.should include("above threshold set @")
+    end
+
   end
 
   describe "Generator" do
