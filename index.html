@@ -1,0 +1,120 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  
+  <title>GreenOnion | UI testing/diffing tool</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" href="css/home_style.css">
+  <link rel="stylesheet" href="css/screen.css">
+  <link rel="stylesheet" href="css/media_queries.css">
+  <link rel="stylesheet" href="css/code.css">
+  <link rel="stylesheet" href="http://f.fontdeck.com/s/css/m6Lez9WflF3tDDcWVkR43JhhHws/intridea.github.com/21671.css" type="text/css" />
+
+  <script src="js/libs/modernizr-2.5.3.min.js"></script>
+  
+</head>
+<body>
+  <div id="container">
+
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+  <header class="cf">
+		<section>
+			  <a href="http://www.intridea.com" id="tag"></a>
+		<div id="title">
+			<img src="img/green_onion.png" id="reg_logo">
+			<!-- <img src="img/grape_logo_alt.png" id="alt_logo"> -->
+			<h1>GreenOnion</h1>
+		</div>
+		<div id="quick_links" class="cf">
+			<span class="button_outer"><a href="https://github.com/intridea/green_onion" alt="" class="button">Fork this on Github</a></span>
+			<span class="button_outer"><a href="http://rubydoc.info/gems/green_onion/0.1.1/frames" alt=""  class="button">Full Documentation</a></span>
+			<span class="button_outer"><a href="https://github.com/intridea/green_onion/issues" alt=""  class="button">Report a Problem</a></span>				
+		</div>
+		</section>
+  </header>
+  <div id="header_border"></div>
+  <div id="content_container">
+  <div role="main" id="content" class="cf">
+	<div class="col">
+		<h2>What is GreenOnion?</h2>
+		<p>No one wants to cry over regression issues in views; does testing HTML and CSS have to be such a back and forth between designers and devs? Why is it that the rest of the stack can have TDD and BDD but not the presentation layer? Well, GreenOnion is here to help you get the same results on testing front-end styling that you've enjoyed in your unit and integration tests up to now.</p>
+    <p>GreenOnion records 'skins', which are snapshots of the current state of a view (or any page that a browser can navigate to). The first time that it is run on a view, it saves the skin; the second time that it is run, it will compare the first skin to the fresh (new) skin. You can either compare with a diff image that is automatically created, or by an outputted percentage of difference.</p>
+				
+		<h2>Getting Started</h2>
+		<p>GreenOnion is available as a gem, to install it just install the gem:<p>
+		<pre class="code"><span class="identifier">gem </span><span class="identifier">install green_onion</span></pre>
+		<p>If you're using Bundler, add the gem to Gemfile.</p>
+		<pre class="code">gem 'green_onion'</pre>
+
+    <h2>Command Line Interface</h2>
+    <p>To just run a comparison between skins in your shell, you can use the command below:</p>
+    <pre class="code">green_onion skin [url] [options]</pre>
+    <p>To generate a "skinner" file, which will test a Rails application; use the command below:</p>
+    <pre class="code">green_onion generate [options]</pre>
+	</div>
+	
+	<div class="col">
+		<h2>Adding GreenOnion to integration tests with RSpec</h2>
+    <p>For adding GreenOnion to your integration tests in RSpec, add this to your spec_helper.rb file.</p>
+<pre class="code">require 'green_onion'
+
+GreenOnion.configure do |c|
+  c.skins_dir = 'your/path/to/skins'
+  c.threshold = 20
+  c.dimensions = { :width => 1440, :height => 768 }
+end</pre>
+    <p>In a spec, you can place one of the following methods to compare:<p>
+		<pre class="code">GreenOnion.skin_visual("http://localhost")</pre>
+    <pre class="code">GreenOnion.skin_percentage("http://localhost", 20)</pre>
+    <pre class="code">GreenOnion.skin_visual_and_percentage("http://localhost", 20)</pre>
+		<h2>Created By:</h2>
+		<div id="author" class="cf">
+			<section class="bio">
+				<h1>Ted O'Meara</h1>
+				<ul class="author-links cf">
+					<li class="icn_twitter"><a href="https://twitter.com/tomeara">Twitter</a></li>
+				</ul>
+				<p>Ted has worked the across the gamut from Fortune 500 companies to fresh, up-and-coming startups. He is a big proponent of the Ruby language, User Experience, and striving to build and design simplistic and enjoyable interfaces. He is also works with the UMBC Human-Centered Computing program, and focuses his research on the cognitively impaired. When he is not consulting commercial operations, Ted likes to build software that is accessible and affordable for all users.</p>
+			</section>
+		</div>
+	</div>
+	
+  </div>
+  
+  <footer>
+	<section>
+	<a id="hiring" href="http://www.intridea.com/careers">We're Hiring!</a>
+	<span>Copyright &copy; 2012 <a href="http://www.intridea.com">Intridea</a>. Released under the MIT License on <a href="https://github.com/intridea/grape">GitHub</a>.</span>
+	<a id="footer_logo" href="http://www.intridea.com">Intridea.com</a>
+
+	</section>
+  </footer>
+</div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\/script>')</script>
+  	
+  <script src="js/plugins.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/css3-mediaqueries.js"></script> 
+  <script type="text/javascript" src="js/retina.js"></script>
+  
+  <script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+  
+</body>
+</html>
