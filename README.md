@@ -1,5 +1,5 @@
 
-[<img src="https://secure.travis-ci.org/tomeara/green_onion.png" />](http://travis-ci.org/#!/tomeara/green_onion) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/tomeara/green_onion)
+[<img src="https://secure.travis-ci.org/intridea/green_onion.png" />](http://travis-ci.org/#!/intridea/green_onion) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/intridea/green_onion)
 
 # GreenOnion
 
