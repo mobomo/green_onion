@@ -18,4 +18,8 @@ class SampleApp < Sinatra::Base
     "<img src='onion_face_#{rand(2)}.jpg' />"
   end
 
+  get "/another/uri/string" do
+    "<h1>It was the best of times, it was the blorst of times.</h1>"
+  end
+
 end

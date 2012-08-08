@@ -6,13 +6,14 @@ module GreenOnion
   class Screenshot
     include Capybara::DSL
 
-    attr_accessor :dir, :dimensions 
+    attr_accessor :dir, :dimensions, :skin_name
     attr_reader :paths_hash
 
     def initialize(params = {})
       Capybara.default_driver = :webkit
       @dimensions = params[:dimensions]
       @dir = params[:dir]
+      @skin_name = params[:skin_name]
       @paths_hash = {}
     end
 
@@ -45,13 +46,19 @@ module GreenOnion
       end
     end
 
+    def file_namer
+      @filename.slice!(/^\//) # remove the beginning "/" if there is one
+      @filename = @filename.gsub(@skin_name[:match], @skin_name[:replace]) # by default, all "/" in a URI string will be replaced with "_"
+      @filename = @skin_name[:prefix] + @filename if @skin_name[:prefix] # add on a prefix defined in the configuration block
+      @paths_hash[:original] = "#{@dir}/#{@filename}.png"
+    end
+
     def get_path(url)
       url_matcher(url)
       if @filename.empty? || @filename == '/' 
-        @paths_hash[:original] = "#{@dir}/root.png"
+        @paths_hash[:original] = "#{@dir}/#{@skin_name[:root]}.png"
       else
-        @filename = @filename.gsub(/[\/]/, '')
-        @paths_hash[:original] = "#{@dir}/#{@filename}.png"
+        file_namer
       end
     end
 

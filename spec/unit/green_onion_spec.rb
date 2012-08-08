@@ -118,6 +118,42 @@ describe GreenOnion do
     end
   end
 
+  describe "Skins with custom file namespace" do
+
+    after(:each) do
+      FileUtils.rm_r(@tmp_path, :force => true)
+    end
+
+    it "should allow custom file namespacing" do  
+      GreenOnion.configure do |c|
+        c.skins_dir = @tmp_path
+        c.skin_name = { 
+          :match => /[\/a-z]/,
+          :replace => "-",
+          :prefix => "start",
+          :root => "first"
+        }
+      end
+      ( (GreenOnion.configuration.skin_name[:match] == /[\/a-z]/) && 
+        (GreenOnion.configuration.skin_name[:replace] == "-")     && 
+        (GreenOnion.configuration.skin_name[:prefix] == "start")  && 
+        (GreenOnion.configuration.skin_name[:root] == "first")  ).should be_true
+    end
+
+    it "should allow incomplete setting of skin_name hash" do  
+      GreenOnion.configure do |c|
+        c.skins_dir = @tmp_path
+        c.skin_name = { 
+          :replace => "o"
+        }
+      end
+      ( (GreenOnion.configuration.skin_name[:match] == /[\/]/) && 
+        (GreenOnion.configuration.skin_name[:replace] == "o")     && 
+        (GreenOnion.configuration.skin_name[:prefix] == nil)  && 
+        (GreenOnion.configuration.skin_name[:root] == "root")  ).should be_true
+    end
+  end
+
   describe "Errors" do
     before(:each) do  
       GreenOnion.configure do |c|

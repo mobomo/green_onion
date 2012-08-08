@@ -60,13 +60,27 @@ For adding GreenOnion to your integration tests in RSpec, add `require 'green_on
 
     GreenOnion.configure do |c|
       c.skins_dir = 'your/path/to/skins'
+      c.skin_name = {
+        :match => /[\/]/, 
+        :replace => "_", 
+        :prefix => nil,
+        :root => "root" 
+      }
+      c.dimensions = { 
+        :width => 1440, 
+        :height => 768 
+      }
       c.threshold = 20
-      c.dimensions = { :width => 1440, :height => 768 }
     end
 
 * `skins_dir` is the directory that GreenOnion will store all skins. The namespace for skins is {URI name}.png (original), {URI name}_fresh.png (testing), and {URI name}_diff.png. The default directory will be './spec/skins'
-* `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
+* `skin_name` is a hash that defines the skin namespace. The options include:
+    * `:match` - a regex pattern that will replace characters from the URI. The default pattern will match to all "/" in a URI.
+    * `:replace` - the string that replaces what is matched. These options are just abstractions of String.gsub in GreenOnion::Screenshot.
+    * `:prefix` - a value that will be concatenated to the front of the filename. A good example would be if you wanted to add a timestamp: `:prefix => Time.now.strftime("%m_%Y_")`.
+    * `:root` - the string that will be used to name the root of a domain.
 * `dimensions` is a hash with the height and width of the browser window. The default dimensions are 1024x768.
+* `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
 
 Then use one of the three methods below in a test...
 
@@ -105,7 +119,7 @@ The best way to run the specs is with...
 * Screenshots can either be viewed as a visual diff, or overlayed newest over oldest and viewed as an onion-skin with sliding transparency.
 * Allow for flexibility in picking browsers
 * Skinner generator needs love <3
-** Should allow for testing using fixtures/factories
+    * Should allow for testing using fixtures/factories
 * More robust tests, especially around the visual diffs themselves
 * More documentation
 * More configuration/customizable settings

@@ -14,7 +14,13 @@ describe GreenOnion::Screenshot do
     before(:each) do
       @screenshot = GreenOnion::Screenshot.new(
         :dir => @tmp_path,
-        :dimensions => @dimensions
+        :dimensions => @dimensions,
+        :skin_name => { 
+          :match => /[\/]/,
+          :replace => "",
+          :prefix => nil,
+          :root => "root"
+        }
       )
       @file = "#{@tmp_path}/fake_uri.png"
     end
@@ -51,7 +57,13 @@ describe GreenOnion::Screenshot do
     before(:each) do
       @screenshot = GreenOnion::Screenshot.new(
         :dir => @tmp_path,
-        :dimensions => @dimensions
+        :dimensions => @dimensions,
+        :skin_name => { 
+          :match => /[\/]/,
+          :replace => "",
+          :prefix => nil,
+          :root => "root"
+        }
       )
       @file1 = "#{@tmp_path}/fake_uri.png"
       @file2 = "#{@tmp_path}/fake_uri_fresh.png"
@@ -77,6 +89,56 @@ describe GreenOnion::Screenshot do
     it "should destroy a set of screenshots" do
       @screenshot.destroy(@url_w_uri)
       ( File.exist?(@file1) && File.exist?(@file2) ).should be_false
+    end
+  end
+
+  describe "Custom filenaming" do
+
+    after(:each) do
+      FileUtils.rm_r(@tmp_path, :force => true)
+    end
+
+    it "should allow users to create a naming convention" do
+      @screenshot = GreenOnion::Screenshot.new(
+        :dir => @tmp_path,
+        :skin_name => { 
+          :match => /[\/]/, 
+          :replace => "#", 
+          :prefix => nil,
+          :root => "root"
+        }
+      )
+      @screenshot.get_path("#{@url}/another/uri/string")
+      @screenshot.paths_hash[:original].should eq("#{@tmp_path}/another#uri#string.png")
+    end
+
+    it "should allow filenames to have a timestamp" do
+      this_month = Time.now.strftime("%m_%Y_")
+      @screenshot = GreenOnion::Screenshot.new(
+        :dir => @tmp_path,
+        :skin_name => { 
+          :match => /[\/]/,
+          :replace => "-",
+          :prefix => this_month,
+          :root => "root"
+        }
+      )
+      @screenshot.get_path("#{@url}/another/uri/string")
+      @screenshot.paths_hash[:original].should eq("#{@tmp_path}/#{this_month}another-uri-string.png")
+    end
+
+     it "should allow renaming for root skins" do
+      @screenshot = GreenOnion::Screenshot.new(
+        :dir => @tmp_path,
+        :skin_name => { 
+          :match => /[\/]/,
+          :replace => "-",
+          :prefix => nil,
+          :root => "first"
+        }
+      )
+      @screenshot.get_path(@url)
+      @screenshot.paths_hash[:original].should eq("#{@tmp_path}/first.png")
     end
   end
 end

@@ -23,7 +23,8 @@ module GreenOnion
     def skin(url)
       @screenshot = Screenshot.new(
         :dir => @configuration.skins_dir,
-        :dimensions => @configuration.dimensions
+        :dimensions => @configuration.dimensions,
+        :skin_name => @configuration.skin_name
       )
       @compare = GreenOnion::Compare.new
 
