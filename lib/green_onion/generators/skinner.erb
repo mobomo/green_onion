@@ -11,6 +11,12 @@ GreenOnion.configure do |c|
   # c.skins_dir = "#{::Rails.root}/spec/skins"
   # c.threshold = 100
   # c.dimensions = { :width => 1024, :height => 768 }
+  # c.skin_name = {
+  #   :match => /[\/]/, 
+  #   :replace => "_", 
+  #   :prefix => nil,
+  #   :root => "root" 
+  # }
 end
 
 all_routes = Rails.application.routes.routes
