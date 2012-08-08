@@ -6,12 +6,10 @@ Gem::Specification.new do |gem|
   gem.email         = ["ted@intridea.com"]
   gem.description   = %q{UI testing/screenshot diffing tool}
   gem.summary       = %q{Regressions in the view making you cry? Have more confidence with GreenOnion.}
-  gem.homepage      = ""
+  gem.homepage      = "http://intridea.github.com/green_onion"
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
-  gem.add_development_dependency "pry"
-  gem.add_development_dependency "debugger"
   gem.add_development_dependency "sinatra"
   
   gem.add_dependency "capybara", "1.1.2"
