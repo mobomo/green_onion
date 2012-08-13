@@ -186,8 +186,7 @@ margin-left: 0.03em;
     color:#5B854B;
   }
   .button:active{
-    background: #904F96;
-    background:rgba(84,0,90,.25);
+    background: #5B854B;
     box-shadow:inset rgba(84,6,90,.12) 0px 2px 4px;
     -webkit-transition: all .1s ease-in; 
     -moz-transition: all .1s ease-in; 
