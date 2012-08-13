@@ -1,6 +1,6 @@
 @media only screen and (max-width: 960px) {  
 	header section{
-		padding:20px 20px;
+		padding:0 20px 20px;
 	}
 	
 	
@@ -24,7 +24,7 @@
 	}
 
 		header section{
-			padding:20px 20px 20px;
+			padding:0px 20px 20px;
 		}
 
 		
@@ -50,7 +50,7 @@
 	
 	header img{
 		height:140px;
-		margin-bottom:10px;
+		margin:-15px 0 10px;
 		display:inline-block;
 	}
 	
@@ -102,7 +102,7 @@
 		
 	}
 	header section{
-		padding:30px 10px 10px;
+		padding:0px 10px 10px;
 	}
 
 	#content{
