@@ -67,11 +67,10 @@ header{
     max-width:1300px;
     margin:0 auto;
     position:relative;
-    padding:0 20px 30px 20px;
+    padding:30px 20px;
   }
   
   header img{
-    margin-top: -23px;
   }
   
   #reg_logo{
@@ -338,7 +337,7 @@ li.git img {
 }
 
 #content .author-links {
-  margin:2px 0 20px 0;
+  margin:4px 0 20px 0;
   float: left;
   font-size: .9em;
 }
