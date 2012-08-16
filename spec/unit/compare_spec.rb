@@ -31,4 +31,26 @@ describe GreenOnion::Compare do
     end
 
   end
+
+  describe 'Clustering' do
+
+    before(:each) do
+      @comparison = GreenOnion::Compare.new
+      @cluster_shot1 = './spec/skins/cluster_shot.png'
+      @cluster_shot2 = './spec/skins/cluster_shot_fresh.png'
+      @cluster_shot3 = './spec/skins/cluster3_shot_fresh.png'
+    end
+
+    it "should measure the clustering of changes on a skin w/ 2 clusters" do
+      @comparison.diff_images(@cluster_shot1, @cluster_shot2)
+      @comparison.pixel_clustering
+      @comparison.clusters.size.should eq(2)
+    end
+
+    it "should measure the clustering of changes on a skin w/ 3 clusters" do
+      @comparison.diff_images(@cluster_shot1, @cluster_shot3)
+      @comparison.pixel_clustering
+      @comparison.clusters.size.should eq(3)
+    end
+  end
 end

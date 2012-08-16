@@ -1,11 +1,18 @@
 require "oily_png"
 require "rainbow"
+require "hierclust"
 
 module GreenOnion
+  class Hierclust::Point
+    def to_a
+      [self.x, self.y]
+    end
+  end
+
   class Compare
 
     attr_accessor :percentage_changed, :total_px, :changed_px
-    attr_reader :diffed_image
+    attr_reader :diffed_image, :clusters
 
     # Pulled from Jeff Kreeftmeijer's post here: http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/
     # Thanks Jeff!
@@ -30,6 +37,29 @@ module GreenOnion
             @diff_index << [x,y] 
             pixel_difference_filter(pixel, x, y)
           end
+        end
+      end
+    end
+
+    def pixel_clustering
+      create_points
+      create_clusters
+    end
+
+    def create_points
+      @points = @diff_index.map do |thing|
+        point = Hierclust::Point.new(thing[0], thing[1])
+      end
+    end
+
+    def create_clusters
+      clusterer = Hierclust::Clusterer.new(@points, 20, 20)
+      @clusters = {}
+
+      clusterer.clusters.each_with_index do |cluster, index|
+        @clusters[index] ||= []
+        cluster.points.each do |point|
+          @clusters[index] << point.to_a
         end
       end
     end

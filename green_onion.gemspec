@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency "oily_png", "~> 1.0.2"
   gem.add_dependency "rainbow"
   gem.add_dependency "fileutils"
+  gem.add_dependency "hierclust"
   gem.add_dependency "thor", ">= 0.14.6"
 
   gem.files         = `git ls-files`.split($\)
