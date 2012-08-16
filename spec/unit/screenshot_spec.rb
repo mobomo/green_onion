@@ -42,7 +42,7 @@ describe GreenOnion::Screenshot do
     end
 
     it 'should snap and save screenshot' do
-      @screenshot.snap_screenshot(@url_w_uri, @file)
+      @screenshot.browser.snap_screenshot(@url_w_uri, @file)
       File.exist?(@file).should be_true
     end
 

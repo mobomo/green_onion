@@ -3,6 +3,7 @@ require "green_onion/screenshot"
 require "green_onion/compare"
 require "green_onion/configuration"
 require "green_onion/errors"
+require "green_onion/browser"
 require "rainbow"
 
 module GreenOnion
