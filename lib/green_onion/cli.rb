@@ -12,6 +12,7 @@ module GreenOnion
     desc "skin <url>", "Creates skins from <url> and compares them"
     method_option :method, :aliases => "-m", :type => :string
     method_option :threshold, :aliases => "-t", :type => :numeric
+    method_option :driver, :aliases => "-b", :type => :string
     method_option :width, :aliases => "-w", :type => :numeric
     method_option :height, :aliases => "-h", :type => :numeric
     def skin(url)
@@ -19,6 +20,7 @@ module GreenOnion
         c.skins_dir = options[:dir] if options[:dir]
         c.threshold = options[:threshold] if options[:threshold]
         c.dimensions = { :width => options[:width], :height => options[:height] } if options[:width] && options[:height]
+        c.driver = options[:driver].to_sym if options[:driver]
       end
       case options[:method]
       when "v"

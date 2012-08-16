@@ -6,13 +6,17 @@ describe GreenOnion::Screenshot do
     @url = 'http://localhost:8070'
     @url_w_uri = @url + '/fake_uri'
     @tmp_path = './spec/tmp'
-    @dimensions = { :width => 1024, :height => 768 }
+    @browser = GreenOnion::Browser.new(
+      :dimensions => { :width => 1024, :height => 768 },
+      :driver => :webkit
+    )
   end
 
   describe 'Snap single screenshot' do
 
     before(:each) do
       @screenshot = GreenOnion::Screenshot.new(
+        :browser => @browser,
         :dir => @tmp_path,
         :dimensions => @dimensions,
         :skin_name => { 
@@ -56,6 +60,7 @@ describe GreenOnion::Screenshot do
 
     before(:each) do
       @screenshot = GreenOnion::Screenshot.new(
+        :browser => @browser,
         :dir => @tmp_path,
         :dimensions => @dimensions,
         :skin_name => { 
@@ -100,6 +105,7 @@ describe GreenOnion::Screenshot do
 
     it "should allow users to create a naming convention" do
       @screenshot = GreenOnion::Screenshot.new(
+        :browser => @browser,
         :dir => @tmp_path,
         :skin_name => { 
           :match => /[\/]/, 
@@ -115,6 +121,7 @@ describe GreenOnion::Screenshot do
     it "should allow filenames to have a timestamp" do
       this_month = Time.now.strftime("%m_%Y_")
       @screenshot = GreenOnion::Screenshot.new(
+        :browser => @browser,
         :dir => @tmp_path,
         :skin_name => { 
           :match => /[\/]/,
@@ -129,6 +136,7 @@ describe GreenOnion::Screenshot do
 
      it "should allow renaming for root skins" do
       @screenshot = GreenOnion::Screenshot.new(
+        :browser => @browser,
         :dir => @tmp_path,
         :skin_name => { 
           :match => /[\/]/,
@@ -139,6 +147,36 @@ describe GreenOnion::Screenshot do
       )
       @screenshot.get_path(@url)
       @screenshot.paths_hash[:original].should eq("#{@tmp_path}/first.png")
+    end
+  end
+
+  describe 'Using Selenium' do
+
+    before(:each) do
+      @selenium = GreenOnion::Browser.new(
+        :driver => :selenium
+      )
+      @screenshot = GreenOnion::Screenshot.new(
+        :browser => @selenium,
+        :dir => @tmp_path,
+        :dimensions => @dimensions,
+        :skin_name => { 
+          :match => /[\/]/,
+          :replace => "_",
+          :prefix => nil,
+          :root => "root"
+        }
+      )
+      @file = "#{@tmp_path}/fake_uri.png"
+    end
+
+    after(:each) do
+      FileUtils.rm_r(@tmp_path, :force => true)
+    end
+
+    it "should snap and save screenshot w/ Selenium" do
+      @screenshot.test_screenshot(@url_w_uri)
+      File.exist?(@file).should be_true
     end
   end
 end

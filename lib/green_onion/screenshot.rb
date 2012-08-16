@@ -6,16 +6,15 @@ module GreenOnion
     attr_reader :paths_hash, :browser, :dir, :skin_name, :dimensions
 
     def initialize(params={})
-      @browser = GreenOnion::Browser.new(
-        :dimensions => params[:dimensions]
-      )
       @dir = params[:dir]
       @skin_name = params[:skin_name]
+      @browser = params[:browser]
       @paths_hash = {}
     end
 
     def test_screenshot(url)
       url_to_path(url)
+      create_dir(@dir)
       @browser.snap_screenshot(url, @shot_path)
     end
 
@@ -43,6 +42,12 @@ module GreenOnion
       @filename = @filename.gsub(@skin_name[:match], @skin_name[:replace]) # by default, all "/" in a URI string will be replaced with "_"
       @filename = @skin_name[:prefix] + @filename if @skin_name[:prefix] # add on a prefix defined in the configuration block
       @paths_hash[:original] = "#{@dir}/#{@filename}.png"
+    end
+
+    def create_dir(dir)
+      unless Dir.exist?(dir)
+        FileUtils.mkdir(dir)
+      end
     end
 
     def get_path(url)

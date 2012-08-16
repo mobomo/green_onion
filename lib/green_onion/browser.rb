@@ -5,17 +5,22 @@ module GreenOnion
   class Browser
     include Capybara::DSL
 
-    attr_reader :dimensions
+    attr_reader :driver, :dimensions
 
     def initialize(params={})
-      Capybara.default_driver = :webkit
+      @driver = params[:driver]
       @dimensions = params[:dimensions]
+      Capybara.default_driver = @driver
     end
 
 
     def snap_screenshot(url, path)
       visit url
-      Capybara.page.driver.render(path, @dimensions)
+      if @driver == :webkit
+        Capybara.page.driver.render(path, @dimensions)
+      else
+        Capybara.page.driver.browser.save_screenshot(path)
+      end
     end
 
   end

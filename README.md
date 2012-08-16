@@ -42,8 +42,9 @@ Options
 * `--dir=DIR` - the directory that GreenOnion will store all skins. The namespace for skins is {URI name}.png (original), {URI name}_fresh.png (testing), and {URI name}_diff.png. The default directory will be './spec/skins'
 * `--method=[p, v, vp]` - the method in which you'd like to compare the skins. `p` is for percentage, `v` is for visual. The default is visual and percentage.
 * `--threshold=[1-100]` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
-* `--width=[number]` is the width of the browser window. The default width is 1024.
-* `--height=[number]` is the height of the browser window. The default height is 768.
+* `--width=[number]` is the width of the browser window. The default width is 1024. (only when using capybara-webkit)
+* `--height=[number]` is the height of the browser window. The default height is 768. (only when using capybara-webkit)
+* `--driver=DRIVER` is the browser driver for Capybara. It is `webkit` by default, but you can also pass in `selenium`.
 
 #### Generating skinner file
 
@@ -66,6 +67,7 @@ For adding GreenOnion to your integration tests in RSpec, add `require 'green_on
         :prefix => nil,
         :root => "root" 
       }
+      c.driver = :webkit
       c.dimensions = { 
         :width => 1440, 
         :height => 768 
@@ -79,6 +81,7 @@ For adding GreenOnion to your integration tests in RSpec, add `require 'green_on
     * `:replace` - the string that replaces what is matched. These options are just abstractions of String.gsub in GreenOnion::Screenshot.
     * `:prefix` - a value that will be concatenated to the front of the filename. A good example would be if you wanted to add a timestamp: `:prefix => Time.now.strftime("%m_%Y_")`.
     * `:root` - the string that will be used to name the root of a domain.
+* `driver` is a symbol for the browser driver to use. The default is `:webkit`. You could also pass in `:selenium` instead.
 * `dimensions` is a hash with the height and width of the browser window. The default dimensions are 1024x768.
 * `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
 

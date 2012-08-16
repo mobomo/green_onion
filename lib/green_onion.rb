@@ -17,17 +17,17 @@ module GreenOnion
     end
 
     def configuration
-      @configuration ||= GreenOnion::Configuration.new
+      @configuration ||= Configuration.new
     end
 
     # Bring the Screenshot and Compare classes together to create a skin
     def skin(url)
       @screenshot = Screenshot.new(
         :dir => @configuration.skins_dir,
-        :dimensions => @configuration.dimensions,
-        :skin_name => @configuration.skin_name
+        :skin_name => @configuration.skin_name,
+        :browser => @configuration.browser
       )
-      @compare = GreenOnion::Compare.new
+      @compare = Compare.new
 
       @screenshot.test_screenshot(url)
     end

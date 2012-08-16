@@ -177,4 +177,22 @@ describe GreenOnion do
       expect { GreenOnion.skin_visual_and_percentage(@url, 101) }.to raise_error(GreenOnion::Errors::ThresholdOutOfRange)
     end
   end
+
+  
+  describe "Skins with custom driver" do
+    before(:each) do  
+      GreenOnion.configure do |c|
+        c.skins_dir = @tmp_path
+        c.driver = :selenium
+      end
+    end
+
+    after(:each) do
+      FileUtils.rm_r(@tmp_path, :force => true)
+    end
+
+    it "should allow custom browser driver" do
+      GreenOnion.configuration.browser.driver.should eq(:selenium)
+    end
+  end
 end
