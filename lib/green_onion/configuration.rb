@@ -23,6 +23,7 @@ module GreenOnion
       @driver ||= :webkit
     end
 
+    # Uses the driver and dimensions configuration vars to return a Browser object
     def browser
       @browser = Browser.new(
         :dimensions => dimensions,
@@ -38,6 +39,7 @@ module GreenOnion
       @skin_name ||= skin_namespace_hash
     end
 
+    # Serves as a template for skin_name getter/setter
     def skin_namespace_hash(options = {})
       { 
         :match   =>  options[:match] ? options[:match] : /[\/]/, 
