@@ -12,7 +12,7 @@ module GreenOnion
     desc "skin <url>", "Creates skins from <url> and compares them"
     method_option :method, :aliases => "-m", :type => :string
     method_option :threshold, :aliases => "-t", :type => :numeric
-    method_option :driver, :aliases => "-b", :type => :string
+    method_option :browser, :aliases => "-b", :type => :string
     method_option :width, :aliases => "-w", :type => :numeric
     method_option :height, :aliases => "-h", :type => :numeric
     def skin(url)
