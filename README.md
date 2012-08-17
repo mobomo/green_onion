@@ -13,7 +13,7 @@ GreenOnion is a testing library for the UI only. It alerts you when the appearan
 
 ## Installation
 
-If you want to use [capybara-webkit](https://github.com/thoughtbot/capybara-webkit), you'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) and `gem install capybara-webkit` to get it up and running. Overwise, you can just use `:driver => :selenium` in the configuration block.
+If you want to use [capybara-webkit](https://github.com/thoughtbot/capybara-webkit), you'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) and `gem install capybara-webkit` to get it up and running. Overwise, you can just use `:driver => 'selenium'` in the configuration block.
 
 Add this line to your application's Gemfile:
 
