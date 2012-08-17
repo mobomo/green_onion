@@ -13,7 +13,7 @@ GreenOnion is a testing library for the UI only. It alerts you when the appearan
 
 ## Installation
 
-If you want to use [capybara-webkit](https://github.com/thoughtbot/capybara-webkit), you'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) and `gem install capybara-webkit` to get it up and running. Overwise, you can just use `:driver => 'selenium'` in the configuration block.
+If you want to use [capybara-webkit](https://github.com/thoughtbot/capybara-webkit), you'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) and `gem install capybara-webkit` to get it up and running. Overwise, you can just use `:driver => 'selenium'` (or another driver) in the configuration block.
 
 Add this line to your application's Gemfile:
 
@@ -44,7 +44,7 @@ Options
 * `--threshold=[1-100]` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
 * `--width=[number]` is the width of the browser window. The default width is 1024. (only when using capybara-webkit)
 * `--height=[number]` is the height of the browser window. The default height is 768. (only when using capybara-webkit)
-* `--driver=DRIVER` is the browser driver for Capybara. It is `webkit` by default, but you can also pass in `selenium`.
+* `--browser=DRIVER` is the browser driver for Capybara. It is `webkit` by default, but you can also pass in `selenium` or `poltergeist` (for PhantomJS).
 
 #### Generating skinner file
 
@@ -63,11 +63,11 @@ For adding GreenOnion to your integration tests in RSpec, add `require 'green_on
       c.skins_dir = 'your/path/to/skins'
       c.skin_name = {
         :match => /[\/]/, 
-        :replace => "_", 
+        :replace => '_', 
         :prefix => nil,
-        :root => "root" 
+        :root => 'root' 
       }
-      c.driver = :webkit
+      c.driver = 'webkit'
       c.dimensions = { 
         :width => 1440, 
         :height => 768 
@@ -81,7 +81,7 @@ For adding GreenOnion to your integration tests in RSpec, add `require 'green_on
     * `:replace` - the string that replaces what is matched. These options are just abstractions of String.gsub in GreenOnion::Screenshot.
     * `:prefix` - a value that will be concatenated to the front of the filename. A good example would be if you wanted to add a timestamp: `:prefix => Time.now.strftime("%m_%Y_")`.
     * `:root` - the string that will be used to name the root of a domain.
-* `driver` is a string for the browser driver to use. The default is `'webkit'`. You could also pass in `'selenium'` instead.
+* `driver` is a string for the browser driver to use. The default is `'webkit'`. You could also pass in `'selenium'` or `'poltergeist'` (for PhantomJS) instead.
 * `dimensions` is a hash with the height and width of the browser window. The default dimensions are 1024x768.
 * `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
 
