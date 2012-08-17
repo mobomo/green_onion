@@ -176,14 +176,22 @@ describe GreenOnion do
     it "should raise error for when threshold is out of range for skin_visual_and_percentage" do
       expect { GreenOnion.skin_visual_and_percentage(@url, 101) }.to raise_error(GreenOnion::Errors::ThresholdOutOfRange)
     end
+
+    it "should raise error for when unknown driver is assigned" do
+      GreenOnion.configure do |c|
+        c.skins_dir = @tmp_path
+        c.driver = :foo
+      end
+      expect { GreenOnion.skin_percentage(@url) }.to raise_error(ArgumentError)
+    end
   end
 
-  
+
   describe "Skins with custom driver" do
     before(:each) do  
       GreenOnion.configure do |c|
         c.skins_dir = @tmp_path
-        c.driver = :selenium
+        c.driver = "selenium"
       end
     end
 
@@ -192,7 +200,7 @@ describe GreenOnion do
     end
 
     it "should allow custom browser driver" do
-      GreenOnion.configuration.browser.driver.should eq(:selenium)
+      GreenOnion.configuration.browser.driver.should eq("selenium")
     end
   end
 end

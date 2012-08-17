@@ -8,7 +8,7 @@ describe GreenOnion::Screenshot do
     @tmp_path = './spec/tmp'
     @browser = GreenOnion::Browser.new(
       :dimensions => { :width => 1024, :height => 768 },
-      :driver => :webkit
+      :driver => "webkit"
     )
   end
 
@@ -18,7 +18,6 @@ describe GreenOnion::Screenshot do
       @screenshot = GreenOnion::Screenshot.new(
         :browser => @browser,
         :dir => @tmp_path,
-        :dimensions => @dimensions,
         :skin_name => { 
           :match => /[\/]/,
           :replace => "",
@@ -62,7 +61,6 @@ describe GreenOnion::Screenshot do
       @screenshot = GreenOnion::Screenshot.new(
         :browser => @browser,
         :dir => @tmp_path,
-        :dimensions => @dimensions,
         :skin_name => { 
           :match => /[\/]/,
           :replace => "",
@@ -150,33 +148,4 @@ describe GreenOnion::Screenshot do
     end
   end
 
-  describe 'Using Selenium' do
-
-    before(:each) do
-      @selenium = GreenOnion::Browser.new(
-        :driver => :selenium
-      )
-      @screenshot = GreenOnion::Screenshot.new(
-        :browser => @selenium,
-        :dir => @tmp_path,
-        :dimensions => @dimensions,
-        :skin_name => { 
-          :match => /[\/]/,
-          :replace => "_",
-          :prefix => nil,
-          :root => "root"
-        }
-      )
-      @file = "#{@tmp_path}/fake_uri.png"
-    end
-
-    after(:each) do
-      FileUtils.rm_r(@tmp_path, :force => true)
-    end
-
-    it "should snap and save screenshot w/ Selenium" do
-      @screenshot.test_screenshot(@url_w_uri)
-      File.exist?(@file).should be_true
-    end
-  end
 end

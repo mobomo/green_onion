@@ -13,7 +13,7 @@ GreenOnion is a testing library for the UI only. It alerts you when the appearan
 
 ## Installation
 
-You'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) to get it up and running.
+If you want to use [capybara-webkit](https://github.com/thoughtbot/capybara-webkit), you'll need to get Qt built in your testing environment. [Follow these steps](https://github.com/thoughtbot/capybara-webkit/wiki/Installing-Qt-and-compiling-capybara-webkit) and `gem install capybara-webkit` to get it up and running. Overwise, you can just use `:driver => :selenium` in the configuration block.
 
 Add this line to your application's Gemfile:
 
@@ -81,7 +81,7 @@ For adding GreenOnion to your integration tests in RSpec, add `require 'green_on
     * `:replace` - the string that replaces what is matched. These options are just abstractions of String.gsub in GreenOnion::Screenshot.
     * `:prefix` - a value that will be concatenated to the front of the filename. A good example would be if you wanted to add a timestamp: `:prefix => Time.now.strftime("%m_%Y_")`.
     * `:root` - the string that will be used to name the root of a domain.
-* `driver` is a symbol for the browser driver to use. The default is `:webkit`. You could also pass in `:selenium` instead.
+* `driver` is a string for the browser driver to use. The default is `'webkit'`. You could also pass in `'selenium'` instead.
 * `dimensions` is a hash with the height and width of the browser window. The default dimensions are 1024x768.
 * `threshold` is the percentage of acceptable change that the screenshots can take. This number can always be overwritten for an instance.
 
@@ -131,13 +131,16 @@ The best way to run the specs is with...
 
 Much of this work could not be completed without these people and projects
 
-### Jeff Kreeftmeijer
+### [Jeff Kreeftmeijer](http://jeffkreeftmeijer.com)
 This is the post that got the wheels in motion: http://jeffkreeftmeijer.com/2011/comparing-images-and-creating-image-diffs/. Most of the GreenOnion::Compare class is based on this work alone. Great job Jeff!
 
-### Compatriot
+### [Compatriot](https://github.com/carols10cents/compatriot)
 Carol Nichols saw the same post, and worked on an excellent gem for cross-browser testing. That gem greatly influenced design decisions with GreenOnion.
 
-### Capybara, ChunkyPNG, Thor, and OilyPNG
+### [VCR](https://github.com/myronmarston/vcr)
+Many patterns and ideas also came from VCR, because of its flexibility in allowing users to pick what gems to work with.
+
+### [Capybara](https://github.com/jnicklas/capybara), [ChunkyPNG](https://github.com/wvanbergen/chunky_png), [Thor](https://github.com/wycats/thor), and [OilyPNG](https://github.com/wvanbergen/oily_png)
 The land on which we sow our bulbs.
 
 ## Contributor

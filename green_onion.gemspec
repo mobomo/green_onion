@@ -11,9 +11,9 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
   gem.add_development_dependency "sinatra"
+  gem.add_development_dependency "capybara-webkit"
   
   gem.add_dependency "capybara", " ~> 1.1"
-  gem.add_dependency "capybara-webkit", "~> 0.12.1"
   gem.add_dependency "oily_png", "~> 1.0.2"
   gem.add_dependency "rainbow"
   gem.add_dependency "fileutils"

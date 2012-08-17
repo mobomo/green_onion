@@ -1,26 +1,26 @@
-require 'capybara/dsl'
-require 'capybara-webkit'
-
 module GreenOnion
   class Browser
-    include Capybara::DSL
 
     attr_reader :driver, :dimensions
 
     def initialize(params={})
       @driver = params[:driver]
       @dimensions = params[:dimensions]
-      Capybara.default_driver = @driver
+      load_driver
     end
 
+    def load_driver
+      begin
+        require "green_onion/drivers/#{driver}"
+        @driver_obj = GreenOnion.const_get(@driver.capitalize).new
+      rescue LoadError => e
+        raise e unless e.message.include?("green_onion/drivers")
+        raise ArgumentError.new("#{@driver} is not supported by GreenOnion.")
+      end
+    end
 
     def snap_screenshot(url, path)
-      visit url
-      if @driver == :webkit
-        Capybara.page.driver.render(path, @dimensions)
-      else
-        Capybara.page.driver.browser.save_screenshot(path)
-      end
+      @driver_obj.record(url, path, @dimensions)
     end
 
   end
