@@ -1,8 +1,6 @@
 #!/usr/bin/env rake
 require "bundler/gem_tasks"
 require 'rack'
-require 'green_onion'
-require 'benchmark'
 
 desc "Running server..."
 task :server do
@@ -26,11 +24,13 @@ task :spec do
 end
 
 namespace :benchmarks do
+  require 'benchmark'
   task("server").execute
   @tmp_path = './spec/tmp'
 
   desc "WebKit benchmark"
   task :webkit do
+    require File.expand_path('../lib/green_onion', __FILE__)
     GreenOnion.configure do |c|
       c.skins_dir = @tmp_path
       c.driver = "webkit"
@@ -43,6 +43,7 @@ namespace :benchmarks do
 
   desc "PhantomJS benchmark"
   task :phantomjs do
+    require File.expand_path('../lib/green_onion', __FILE__)
     GreenOnion.configure do |c|
       c.skins_dir = @tmp_path
       c.driver = "poltergeist"
@@ -55,6 +56,7 @@ namespace :benchmarks do
 
   desc "Selenium benchmark"
   task :selenium do
+    require File.expand_path('../lib/green_onion', __FILE__)
     GreenOnion.configure do |c|
       c.skins_dir = @tmp_path
       c.driver = "selenium"
