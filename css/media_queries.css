@@ -131,7 +131,7 @@
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5) and (max-width: 460px) {
 	.multiplebgs header{
-		background:url("../img/header_2x.png") right;	
+		background:url("../img/header_2x.png") top right;	
 		background-size:auto 390px;
 	}
 }
